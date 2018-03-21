@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: cassandra-node
+  name: cassandra-node
+spec:
+  replicas: 1
+  selector:
+    app: cassandra-node
+    deploymentconfig: cassandra-node
+  template:
+    metadata:
+      labels:
+        app: cassandra-node
+        deploymentconfig: cassandra-node
+    spec:
+      containers:
+        - image: >-
+            cassandra@sha256:f7408a24c1d0d1436c5a0b200b5db777f76f7e0e13b4117547c3686b72483dfc
+          imagePullPolicy: Always
+          name: cassandra-node
+          - env:
+            - name: CASSANDRA_SEEDS
+              value: 10.130.0.59
+          ports:
+            - containerPort: 7000
+              protocol: TCP
+            - containerPort: 7001
+              protocol: TCP
+            - containerPort: 7199
+              protocol: TCP
+            - containerPort: 9042
+              protocol: TCP
+            - containerPort: 9160
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /var/lib/cassandra
+              name: cassandra-node
+          resources:
+            limits:
+              cpu: '1'
+              memory: 2Gi
+            requests:
+              cpu: '1'
+              memory: 2Gi
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - emptyDir: {}
+          name: cassandra-node

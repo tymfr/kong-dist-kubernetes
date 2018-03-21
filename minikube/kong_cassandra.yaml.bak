@@ -63,7 +63,7 @@ kind: Deployment
 metadata:
   name: kong-rc
 spec:
-  replicas: 2
+  replicas: 3
   template:
     metadata:
       labels:
@@ -72,7 +72,7 @@ spec:
     spec:
       containers:
       - name: kong
-        image: docker.io/kong
+        image: kong
         env:
           - name: KONG_ADMIN_LISTEN
             value: 0.0.0.0:8001
@@ -81,7 +81,7 @@ spec:
           - name: KONG_DATABASE
             value: cassandra
           - name: KONG_CASSANDRA_CONTACT_POINTS
-            value: hawkular-cassandra.m8alert.svc.cluster.local
+            value: hawkular-cassandra.openshift-infra.svc.cluster.local
           - name: KONG_CASSANDRA_KEYSPACE
             value: kong
           - name: KONG_CASSANDRA_REPL_FACTOR

@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: cassandra
-        image: gcr.io/google-samples/cassandra:v12
+        image: dockerhub.m8.ccs:5000/gcr.io/google-samples/cassandra:v12
         imagePullPolicy: Always
         ports:
         - containerPort: 7000
@@ -58,13 +58,13 @@ spec:
           - name: HEAP_NEWSIZE
             value: 100M
           - name: CASSANDRA_SEEDS
-            value: "cassandra-0.cassandra.default.svc.cluster.local"
+            value: "hawkular-cassandra.m8alert.svc.cluster.local"
           - name: CASSANDRA_CLUSTER_NAME
-            value: "K8Demo"
+            value: "M8OpenAPI"
           - name: CASSANDRA_DC
-            value: "DC1-K8Demo"
+            value: "DC1-M8OpenAPI"
           - name: CASSANDRA_RACK
-            value: "Rack1-K8Demo"
+            value: "Rack1-M8OpenAPI"
           - name: CASSANDRA_AUTO_BOOTSTRAP
             value: "false"
           - name: POD_IP
